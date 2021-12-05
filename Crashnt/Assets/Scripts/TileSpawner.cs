@@ -1,44 +1,56 @@
-using System.IO;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TileSpawner : MonoBehaviour
 {
+    [SerializeField]
+    private Tile tilePrefab;
+    private List<Tile> tiles = new List<Tile>();
 
-    private GameObject tilePrefab;
-
-    void Awake()
-    {
-        var tilePath = Path.Combine("Prefabs", "Tile").ToString();
-        tilePrefab = (GameObject)Resources.Load(tilePath); 
-    }
     // Start is called before the first frame update
     void Start()
     {
         SpawnTiles(10);
     }
-
+    
     private void SpawnTiles(int count)
     {
-        for (int z = 1; z <= count; z++)
+        for (int z = 0; z <= count + 1; z++)
         {
-            var spawned = Instantiate(tilePrefab, Vector3.zero, Quaternion.identity, this.transform);
-            Vector3 position = GetNewTilePosition(z);
-            spawned.transform.localPosition = position;
+            SpawnTile();
         }
     }
 
-    private Vector3 GetNewTilePosition(int index)
+    private void SpawnTile()
     {
-        var tilePosition = tilePrefab.transform.position;
-        var tileWidth = tilePrefab.GetComponentInChildren<MeshRenderer>().bounds.size.z;
-        var zPosition = tilePosition.z + (index * tileWidth);
-        var position = tilePosition + new Vector3(0, 0, zPosition);
-        return position;
+        var tile = GetLastTile();
+        var tileWidth = tile.GetComponentInChildren<Renderer>().bounds.size.z;
+        Tile spawned = Instantiate(tilePrefab, tile.transform.position + new Vector3(0, 0, tileWidth), Quaternion.identity, this.transform);
+        tiles.Add(spawned);
+        spawned.LeftScreen += Tile_OnLeftScreen;
     }
 
-    // Update is called once per frame
-    void Update()
+    private Tile GetLastTile()
     {
-        
+        Tile tile;
+        if (tiles.Count > 0)
+        {
+            tile = tiles[tiles.Count - 1];
+        }
+        else
+        {
+            tile = tilePrefab;
+        }
+
+        return tile;
+    }
+
+    private void Tile_OnLeftScreen(object sender, EventArgs e)
+    {
+        var tile = (Tile)sender;
+        tiles.Remove(tile);
+        Destroy(tile);
+        SpawnTile();
     }
 }
