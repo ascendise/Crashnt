@@ -7,6 +7,8 @@ public class TileSpawner : MonoBehaviour
     [SerializeField]
     private Tile tilePrefab;
     private List<Tile> tiles = new List<Tile>();
+    private int obstacleDistance = 5;
+    private int tileCounter = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,12 @@ public class TileSpawner : MonoBehaviour
         Tile spawned = Instantiate(tilePrefab, tile.transform.position + new Vector3(0, 0, tileWidth), Quaternion.identity, this.transform);
         tiles.Add(spawned);
         spawned.LeftScreen += Tile_OnLeftScreen;
+        if(tileCounter % obstacleDistance == 0)
+        {
+            tile.HasObstacle(true);
+            tileCounter = 1;
+        }
+        tileCounter++;
     }
 
     private Tile GetLastTile()

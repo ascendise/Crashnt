@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     void Start()
     {
         Vector3 spawnPosition = GetRandomSpawnPosition();
-        obstacle.transform.position = spawnPosition;
+        obstacle.transform.position = spawnPosition; 
     }
 
     private Vector3 GetRandomSpawnPosition()
@@ -56,6 +56,11 @@ public class Tile : MonoBehaviour
     {
         EventHandler handler = LeftScreen;
         handler?.Invoke(this, e);
+    }
+
+    public void HasObstacle(bool hasObstacle)
+    {
+        obstacle.SetActive(hasObstacle);
     }
 
 
