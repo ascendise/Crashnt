@@ -18,13 +18,23 @@ public class Tile : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-        var size = obstacleSpawnArea.GetComponent<Renderer>().bounds.size;
-        var area = obstacleSpawnArea.transform.position;
-        var randomPosition = new Vector3();
-        randomPosition.x = UnityEngine.Random.Range(area.x - size.x / 2, area.x + size.x / 2);
+        var area = obstacleSpawnArea.GetComponent<Renderer>().bounds.size;
+        var center = obstacleSpawnArea.transform.position;
+        var obstacleSize = obstacle.GetComponent<Renderer>().bounds.size;
+        var startPoint = center - area / 2 + obstacleSize / 2;
+        var endPoint = center + area / 2;
+        var randomPosition = RandomRange(startPoint, endPoint);
         randomPosition.y = obstacle.transform.position.y;
-        randomPosition.z = UnityEngine.Random.Range(area.z + size.z / 2, area.z - size.z / 2);
         return randomPosition;
+    }
+
+    private Vector3 RandomRange(Vector3 v1, Vector3 v2)
+    {
+        Vector3 randomVector = new Vector3();
+        randomVector.x = UnityEngine.Random.Range(v1.x, v2.x);
+        randomVector.y = UnityEngine.Random.Range(v1.y, v2.y);
+        randomVector.z = UnityEngine.Random.Range(v1.z, v2.z);
+        return randomVector;
     }
 
     // Update is called once per framelocalPosition
