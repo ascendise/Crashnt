@@ -50,14 +50,9 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        float speed = 1f;
-        float value = gyro.attitude.eulerAngles.z;
-        if(value > 110)
-        {
-            speed *= -1;
-        }
+        var zRotation = gyro.rotationRate.z * -1;
         var position = rigidbody.transform.position;
-        rigidbody.transform.position = new Vector3(position.x + speed * Time.deltaTime, position.y, position.z);
+        rigidbody.transform.position += new Vector3(zRotation * Time.deltaTime, 0, 0);
     }
 
     private void OnTriggerEnter(Collider collider)
