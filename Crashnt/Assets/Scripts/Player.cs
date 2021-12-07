@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
     private static Player _instance;
     public static Player Instance 
     {
@@ -14,6 +13,32 @@ public class Player : MonoBehaviour
         private set
         {
             _instance = value;
+        }
+    }
+
+    private float _score;
+    public float Score
+    {
+        get
+        {
+            return _score;
+        }
+        private set
+        {
+            _score = value;
+        }
+    }
+
+    private float _highscore;
+    public float Highscore
+    {
+        get
+        {
+            return _highscore;
+        }
+        private set
+        {
+            _highscore = _score;
         }
     }
 
@@ -45,6 +70,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Score += 0.01f * Time.deltaTime;
         Move();
     }
 
@@ -65,9 +91,18 @@ public class Player : MonoBehaviour
 
     protected virtual void OnCrash(EventArgs e)
     {
+        this.Highscore = this.Score;
+        Debug.Log(Highscore);
         EventHandler handler = Crash;
         handler?.Invoke(this, e);
     }
 
 
 }
+
+
+
+
+
+
+
