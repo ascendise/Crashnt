@@ -48,8 +48,14 @@ public class Tile : MonoBehaviour
     {
         if(collider.tag.Equals("TileEater"))
         {
-            LeaveScreen?.Invoke(this, EventArgs.Empty);
+            OnLeaveScreen(EventArgs.Empty);
         }
+    }
+
+    protected virtual void OnLeaveScreen(EventArgs e)
+    {
+        EventHandler handler = LeaveScreen;
+        handler?.Invoke(this, e);
     }
 
     public void HasObstacle(bool hasObstacle)

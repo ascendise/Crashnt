@@ -64,8 +64,14 @@ public class Player : MonoBehaviour
     {
         if(collider.tag.Equals("Obstacle"))
         {
-            Crash?.Invoke(this, EventArgs.Empty);
+            OnCrash(EventArgs.Empty);
         }
+    }
+
+    protected virtual void OnCrash(EventArgs e)
+    {
+        EventHandler handler = Crash;
+        handler?.Invoke(this, e);
     }
 
 
