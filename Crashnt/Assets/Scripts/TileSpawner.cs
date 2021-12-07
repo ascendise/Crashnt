@@ -26,11 +26,9 @@ public class TileSpawner : MonoBehaviour
 
     private void SpawnTile()
     {
-        var tile = GetLastTile();
-        var tileWidth = tile.GetComponentInChildren<Renderer>().bounds.size.z;
-        Tile spawned = Instantiate(tilePrefab, tile.transform.position + new Vector3(0, 0, tileWidth), Quaternion.identity, this.transform);
-        tiles.Add(spawned);
-        spawned.LeaveScreen += Tile_OnLeaveScreen;
+        var tile = GetNewTile();
+        tiles.Add(tile);
+        tile.LeaveScreen += Tile_OnLeaveScreen;
         if(tileCounter % obstacleDistance == 0)
         {
             tile.HasObstacle(true);
@@ -39,19 +37,18 @@ public class TileSpawner : MonoBehaviour
         tileCounter++;
     }
 
-    private Tile GetLastTile()
+    private Tile GetNewTile()
     {
-        Tile tile;
+        Vector3 distance = new Vector3(0, 0, 0);
+        Tile lastTile = tilePrefab;
         if (tiles.Count > 0)
         {
-            tile = tiles[tiles.Count - 1];
+            lastTile = tiles[tiles.Count - 1];
+            var tileLength = lastTile.GetComponentInChildren<Renderer>().bounds.size.z;
+            distance = new Vector3(0, 0, tileLength);
         }
-        else
-        {
-            tile = tilePrefab;
-        }
-
-        return tile;
+        Tile newTile = Instantiate(tilePrefab, lastTile.transform.position + distance, Quaternion.identity);
+        return newTile;
     }
 
     private void Tile_OnLeaveScreen(object sender, EventArgs e)
