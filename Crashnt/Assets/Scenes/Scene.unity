@@ -497,9 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a132be183d36e8899757da37cfb48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverScreen: {fileID: 1505431819}
-  scene:
-    m_Handle: 0
+  GameOverScreen: {fileID: 1505431824}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1039,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continueButton: {fileID: 1253598782}
-  sceneLoader: {fileID: 955527376}
 --- !u!1 &1524765082
 GameObject:
   m_ObjectHideFlags: 0
