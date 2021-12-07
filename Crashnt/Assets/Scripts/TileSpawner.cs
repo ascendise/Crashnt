@@ -30,7 +30,7 @@ public class TileSpawner : MonoBehaviour
         var tileWidth = tile.GetComponentInChildren<Renderer>().bounds.size.z;
         Tile spawned = Instantiate(tilePrefab, tile.transform.position + new Vector3(0, 0, tileWidth), Quaternion.identity, this.transform);
         tiles.Add(spawned);
-        spawned.LeftScreen += Tile_OnLeftScreen;
+        spawned.LeaveScreen += Tile_OnLeaveScreen;
         if(tileCounter % obstacleDistance == 0)
         {
             tile.HasObstacle(true);
@@ -54,7 +54,7 @@ public class TileSpawner : MonoBehaviour
         return tile;
     }
 
-    private void Tile_OnLeftScreen(object sender, EventArgs e)
+    private void Tile_OnLeaveScreen(object sender, EventArgs e)
     {
         var tile = (Tile)sender;
         tiles.Remove(tile);

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TileEater
   - Tile
+  - Obstacle
   layers:
   - Default
   - TransparentFX

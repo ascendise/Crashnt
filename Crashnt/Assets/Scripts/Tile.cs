@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 public class Tile : MonoBehaviour
 {
-    public event EventHandler LeftScreen;
+    public event EventHandler LeaveScreen;
 
     [SerializeField]
     private GameObject obstacle;
@@ -48,13 +48,13 @@ public class Tile : MonoBehaviour
     {
         if(collider.tag.Equals("TileEater"))
         {
-            OnLeftScreen(EventArgs.Empty);
+            OnLeaveScreen(EventArgs.Empty);
         }
     }
 
-    protected virtual void OnLeftScreen(EventArgs e)
+    protected virtual void OnLeaveScreen(EventArgs e)
     {
-        EventHandler handler = LeftScreen;
+        EventHandler handler = LeaveScreen;
         handler?.Invoke(this, e);
     }
 
