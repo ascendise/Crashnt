@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
 
     public event EventHandler Crash;
     private Gyroscope gyro;
-    private new Rigidbody rigidbody;
 
     private void Awake()
     {
@@ -27,7 +26,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         SetupGyro();
-        rigidbody = this.GetComponent<Rigidbody>();
         this.Highscore = PlayerPrefs.GetFloat("highscore");
     }
 
@@ -47,9 +45,9 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        var zRotation = gyro.rotationRate.z * -2;
-        var position = rigidbody.transform.position;
-        rigidbody.transform.position += new Vector3(zRotation * Time.deltaTime, 0, 0);
+        var movement = gyro.rotationRate.z * -2f * Time.deltaTime;
+        var characterController = this.GetComponent<CharacterController>();
+        characterController.Move(new Vector3(movement, 0, 0));
     }
 
     private void OnTriggerEnter(Collider collider)
