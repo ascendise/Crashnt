@@ -3,44 +3,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private static Player _instance;
-    public static Player Instance 
-    {
-        get 
-        {
-            return _instance;
-        }
-        private set
-        {
-            _instance = value;
-        }
-    }
-
-    private float _score;
-    public float Score
-    {
-        get
-        {
-            return _score;
-        }
-        private set
-        {
-            _score = value;
-        }
-    }
-
-    private float _highscore;
-    public float Highscore
-    {
-        get
-        {
-            return _highscore;
-        }
-        private set
-        {
-            _highscore = value;
-        }
-    }
+    public static Player Instance {get; private set;}
+    public float Score {get; private set;}
+    public float Highscore {get; private set;}
 
     public event EventHandler Crash;
     private Gyroscope gyro;
