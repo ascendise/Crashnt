@@ -7,7 +7,8 @@ public class TileSpawner : MonoBehaviour
     [SerializeField]
     private Tile tilePrefab;
     private List<Tile> tiles = new List<Tile>();
-    private int obstacleDistance = 5;
+    [SerializeField]
+    private int obstacleDistance;
     private int tileCounter = 1;
 
     // Start is called before the first frame update
