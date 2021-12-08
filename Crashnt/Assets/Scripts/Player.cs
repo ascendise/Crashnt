@@ -62,17 +62,21 @@ public class Player : MonoBehaviour
 
     protected virtual void OnCrash(EventArgs e)
     {
-        if(this.Score > this.Highscore)
+        SaveScore();
+        this.gameObject.SetActive(false);
+        EventHandler handler = Crash;
+        handler?.Invoke(this, e);
+    }
+
+    private void SaveScore()
+    {
+        if (this.Score > this.Highscore)
         {
             this.Highscore = this.Score;
             PlayerPrefs.SetFloat("highscore", this.Highscore);
             PlayerPrefs.Save();
         }
-        EventHandler handler = Crash;
-        handler?.Invoke(this, e);
     }
-
-
 }
 
 
