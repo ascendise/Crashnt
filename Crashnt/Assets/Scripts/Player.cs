@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        var zRotation = gyro.rotationRate.z * -1;
+        var zRotation = gyro.rotationRate.z * -2;
         var position = rigidbody.transform.position;
         rigidbody.transform.position += new Vector3(zRotation * Time.deltaTime, 0, 0);
     }
