@@ -55,7 +55,7 @@ public class TileSpawner : MonoBehaviour
     {
         var tile = (Tile)sender;
         tiles.Remove(tile);
-        Destroy(tile);
+        Destroy(tile.gameObject);
         SpawnTile();
     }
 }
