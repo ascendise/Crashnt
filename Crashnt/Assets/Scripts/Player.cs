@@ -91,8 +91,10 @@ public class Player : MonoBehaviour
 
     protected virtual void OnCrash(EventArgs e)
     {
-        this.Highscore = this.Score;
-        Debug.Log(Highscore);
+        if(this.Score > this.Highscore)
+        {
+            this.Highscore = this.Score;
+        }
         EventHandler handler = Crash;
         handler?.Invoke(this, e);
     }
