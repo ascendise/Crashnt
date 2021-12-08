@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         }
         private set
         {
-            _highscore = _score;
+            _highscore = value;
         }
     }
 
@@ -60,11 +60,17 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {    
+    {
+        SetupGyro();
+        rigidbody = this.GetComponent<Rigidbody>();
+        this.Highscore = PlayerPrefs.GetFloat("highscore");
+    }
+
+    private void SetupGyro()
+    {
         gyro = Input.gyro;
         gyro.updateInterval = 0.5f;
         gyro.enabled = true;
-        rigidbody = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -94,6 +100,8 @@ public class Player : MonoBehaviour
         if(this.Score > this.Highscore)
         {
             this.Highscore = this.Score;
+            PlayerPrefs.SetFloat("highscore", this.Highscore);
+            PlayerPrefs.Save();
         }
         EventHandler handler = Crash;
         handler?.Invoke(this, e);
