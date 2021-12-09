@@ -45,7 +45,8 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        var movement = gyro.rotationRate.z * -2.5f * Time.deltaTime;
+        var speedMultiplier = -5f;
+        var movement = gyro.rotationRate.z * speedMultiplier * Time.deltaTime;
         var characterController = this.GetComponent<CharacterController>();
         characterController.Move(new Vector3(movement, 0, 0));
     }
