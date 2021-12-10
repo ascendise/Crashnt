@@ -11,6 +11,8 @@ public class PlayerView : MonoBehaviour
     private Text scoreText;
     [SerializeField]
     private Text highscoreText;
+    [SerializeField]
+    private Text gyroError;
     private Player player;
 
     // Start is called before the first frame update
@@ -30,6 +32,7 @@ public class PlayerView : MonoBehaviour
     {
         scoreText.text = $"{GetRoundedScore(player.Score)} km";
         highscoreText.text = $"{GetRoundedScore(player.Highscore)} km";
+        gyroError.gameObject.SetActive(!SystemInfo.supportsGyroscope);
     }
 
     private String GetRoundedScore(float score)
