@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     {
         var path = Path.Combine("Prefabs", "Obstacles");
         var obstacles = Resources.LoadAll<GameObject>(path);
-        var index = UnityEngine.Random.Range(0, obstacles.Length - 1);
+        var index = UnityEngine.Random.Range(0, obstacles.Length);
         var obstacle = obstacles[index];
         return Instantiate(obstacle, obstacle.transform.position, obstacle.transform.rotation, this.gameObject.transform);
     }
